@@ -1,5 +1,6 @@
 # ShareSongApp
-**** IT's  UNDER DEVELOPMENT 
+**** IT's  UNDER DEVELOPMENT *************
+
 You can Share your own song or your favorite Artist's song , can like post, play other's posted song etc...
 ![image](https://github.com/user-attachments/assets/e53b0fab-d6d2-4303-9dc1-06f4fbe6848e)
 
