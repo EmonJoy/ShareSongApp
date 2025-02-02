@@ -9,13 +9,10 @@ public class Admin extends JFrame  {
 
 
     Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
-    int width = (int) size.getWidth();
-    int height = (int) size.getHeight();
-
-    LoginForm l1 = new LoginForm();
+   private  int width = (int) size.getWidth();
+    private int height = (int) size.getHeight();
 
 
-    MainFrame seeSong = new MainFrame(l1.LoginUser);
 
     Admin(){
         setTitle("Profile");
