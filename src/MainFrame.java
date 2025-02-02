@@ -1,13 +1,15 @@
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.sound.sampled.*;
 
-public class MainFrame  {
+public class MainFrame {
     private String loginUser;
     public JPanel centerPanel;
     Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
@@ -65,7 +67,21 @@ public class MainFrame  {
                 if (result == JFileChooser.APPROVE_OPTION) {
                     File selectedFile = fileChooser.getSelectedFile();
                     String fileName = selectedFile.getName();
+
                     addSongPost(fileName, loginUser, selectedFile);
+                    try {
+                        BufferedWriter r = new BufferedWriter(new FileWriter("Post.txt", true));
+                        File f = new File("Post.txt");
+                        if (f.length() == 0) {
+                            r.write("\t\tYour Post\t\t\n");
+                            r.newLine();
+                        }
+                        r.write("=====> " + fileName + " " + loginUser + " " + songTitle);
+                        r.newLine();
+                        r.close();
+                    } catch (IOException ae) {
+                        throw new RuntimeException(ae);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(frame, "No file selected.");
                 }
@@ -75,13 +91,16 @@ public class MainFrame  {
         frame.setVisible(true);
     }
 
-    private void addSongPost(String songTitle, String userName, File songFile) {
+    String songTitle;
+    public void addSongPost(String songTitle, String userName, File songFile) {
+        this.songTitle = songTitle;
         JPanel songPost = new JPanel();
         songPost.setLayout(new BoxLayout(songPost, BoxLayout.Y_AXIS));
 
         JPanel songInfo = new JPanel(new FlowLayout(FlowLayout.LEFT));
         songInfo.add(new JLabel("Song Title: " + songTitle));
         songInfo.add(new JLabel("Posted by: " + userName));
+
         songPost.add(songInfo);
 
         ImageIcon like = new ImageIcon(getClass().getResource("like.png"));
@@ -120,8 +139,8 @@ public class MainFrame  {
         Image resizedImg2 = img2.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         ImageIcon resizedIcon2 = new ImageIcon(resizedImg2);
 
-        JButton playButton = new JButton("Play",resizedIcon2);
-        JButton pauseButton = new JButton("Pause",resizedIcon1);
+        JButton playButton = new JButton("Play", resizedIcon2);
+        JButton pauseButton = new JButton("Pause", resizedIcon1);
 
         playButton.addActionListener(new ActionListener() {
             @Override
@@ -187,4 +206,5 @@ public class MainFrame  {
         addSongPost("Song Barsaaateen", "Asif Chowdhury", new File("Despacito.mp3"));
         addSongPost("Song Barsaaateen", "Asif Chowdhury", new File("Despacito.mp3"));
     }
+
 }
